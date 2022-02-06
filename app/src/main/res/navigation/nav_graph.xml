@@ -10,7 +10,7 @@
         android:label="HomeFragment" />
     <fragment
         android:id="@+id/dest_movies_fragment"
-        android:name="com.zmosoft.composenavigationplayground.ui.compose.home.MoviesFragment"
+        android:name="com.zmosoft.composenavigationplayground.ui.fragments.MoviesFragment"
         android:label="MoviesFragment" />
     <fragment
         android:id="@+id/dest_weather_fragment"

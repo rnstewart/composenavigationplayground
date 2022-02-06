@@ -17,4 +17,9 @@ class AppModule(private val app: ComposeNavigationPlaygroundApplication) {
             viewModelSubcomponent.build()
         )
     }
+
+    @Provides
+    fun provideApplication(): ComposeNavigationPlaygroundApplication {
+        return app
+    }
 }
