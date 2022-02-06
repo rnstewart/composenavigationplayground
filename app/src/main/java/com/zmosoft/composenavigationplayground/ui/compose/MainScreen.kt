@@ -1,9 +1,6 @@
 package com.zmosoft.composenavigationplayground.ui.compose
 
-import androidx.compose.material.Scaffold
-import androidx.compose.material.Text
-import androidx.compose.material.TopAppBar
-import androidx.compose.material.rememberScaffoldState
+import androidx.compose.material.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
@@ -26,7 +23,16 @@ fun MainScreen(
             )
         },
         bottomBar = {
-
+            BottomNavigation {
+                NavConstants.NavItem.values().forEach { navItem ->
+                    BottomNavigationItem(
+                        selected = false,
+                        onClick = {}
+                    ) {
+                        
+                    }
+                }
+            }
         },
         floatingActionButton = {
 
