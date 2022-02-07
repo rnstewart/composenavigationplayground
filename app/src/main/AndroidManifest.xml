@@ -2,6 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.zmosoft.composenavigationplayground">
 
+    <uses-permission android:name="android.permission.INTERNET"/>
+
     <application
         android:name=".ComposeNavigationPlaygroundApplication"
         android:allowBackup="true"

@@ -1,5 +1,6 @@
 package com.zmosoft.composenavigationplayground.di
 
+import android.content.Context
 import androidx.lifecycle.ViewModelProvider
 import com.zmosoft.composenavigationplayground.ComposeNavigationPlaygroundApplication
 import com.zmosoft.composenavigationplayground.mvvm.utils.ViewModelFactory
@@ -21,5 +22,10 @@ class AppModule(private val app: ComposeNavigationPlaygroundApplication) {
     @Provides
     fun provideApplication(): ComposeNavigationPlaygroundApplication {
         return app
+    }
+
+    @Provides
+    fun provideContext(): Context {
+        return app.applicationContext
     }
 }
