@@ -11,5 +11,7 @@ local.properties
 
 temp/
 
+app/src/main/assets/config
+
 .DS_Store
 .externalNativeBuild

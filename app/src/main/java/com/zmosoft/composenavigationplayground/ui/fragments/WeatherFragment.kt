@@ -24,7 +24,16 @@ class WeatherFragment : Fragment() {
         return ComposeView(inflater.context).apply {
             setContent {
                 ComposeNavigationPlaygroundTheme {
-                    WeatherScreen()
+                    WeatherScreen(
+                        location = weatherViewModel.location.value,
+                        weatherData = weatherViewModel.weatherData.value,
+                        onLocationUpdated = {
+                            weatherViewModel.location.value = it
+                        },
+                        onLocationSelected = {
+                            weatherViewModel.checkWeather(it)
+                        }
+                    )
                 }
             }
         }
