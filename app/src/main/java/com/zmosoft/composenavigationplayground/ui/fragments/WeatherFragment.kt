@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import androidx.compose.ui.platform.ComposeView
 import androidx.fragment.app.Fragment
 import com.zmosoft.composenavigationplayground.ComposeNavigationPlaygroundApplication
+import com.zmosoft.composenavigationplayground.mvvm.utils.MainScreenInterface
 import com.zmosoft.composenavigationplayground.mvvm.viewmodels.WeatherViewModel
 import com.zmosoft.composenavigationplayground.ui.compose.home.WeatherScreen
 import com.zmosoft.composenavigationplayground.ui.theme.ComposeNavigationPlaygroundTheme
@@ -25,13 +26,23 @@ class WeatherFragment : Fragment() {
             setContent {
                 ComposeNavigationPlaygroundTheme {
                     WeatherScreen(
-                        location = weatherViewModel.location.value,
-                        weatherData = weatherViewModel.weatherData.value,
-                        onLocationUpdated = {
-                            weatherViewModel.location.value = it
-                        },
-                        onLocationSelected = {
-                            weatherViewModel.checkWeather(it)
+                        weatherDataValues = weatherViewModel.weatherDataValues.value,
+                        mainScreenInterface = object: MainScreenInterface {
+                            override fun onHomeLoaded() {
+                            }
+
+                            override fun onWeatherLoaded() {
+                            }
+
+                            override fun onWeatherLocationEntered(location: String) {
+                                weatherViewModel.weatherDataValues.value = weatherViewModel.weatherDataValues.value.copy(
+                                    location = location
+                                )
+                            }
+
+                            override fun onWeatherSearch(location: String) {
+                                weatherViewModel.checkWeather(location)
+                            }
                         }
                     )
                 }

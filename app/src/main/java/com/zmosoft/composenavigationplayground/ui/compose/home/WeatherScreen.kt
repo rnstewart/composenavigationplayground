@@ -15,15 +15,15 @@ import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.zmosoft.composenavigationplayground.api.models.WeatherData
+import com.zmosoft.composenavigationplayground.mvvm.utils.MainScreenInterface
+import com.zmosoft.composenavigationplayground.mvvm.viewmodels.WeatherViewModel
 import com.zmosoft.composenavigationplayground.ui.theme.ComposeNavigationPlaygroundTheme
 
 @Composable
 fun WeatherScreen(
     modifier: Modifier = Modifier,
-    location: String,
-    weatherData: WeatherData?,
-    onLocationUpdated: (String) -> Unit,
-    onLocationSelected: (String) -> Unit
+    weatherDataValues: WeatherViewModel.WeatherDataValues,
+    mainScreenInterface: MainScreenInterface
 ) {
     Column(
         modifier = modifier
@@ -32,6 +32,9 @@ fun WeatherScreen(
             .padding(8.dp),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
+        val location = weatherDataValues.location
+        val weatherData = weatherDataValues.weatherData
+
         Text(
             text = "What is your location?"
         )
@@ -43,13 +46,13 @@ fun WeatherScreen(
                 modifier = Modifier.padding(end = 8.dp),
                 value = location,
                 onValueChange = {
-                    onLocationUpdated(it)
+                    mainScreenInterface.onWeatherLocationEntered(it)
                 }
             )
             if (location.isNotEmpty()) {
                 Button(
                     onClick = {
-                        onLocationSelected(location)
+                        mainScreenInterface.onWeatherSearch(location)
                     }
                 ) {
                     Text(text = "Check")
@@ -93,22 +96,31 @@ fun WeatherScreen(
 fun PreviewWeatherScreen() {
     ComposeNavigationPlaygroundTheme {
         WeatherScreen(
-            location = "Albuquerque",
-            weatherData = WeatherData(
-                main = WeatherData.Main(
-                    temp = 305.0
-                ),
-                weather = listOf(
-                    WeatherData.Weather(
-                        main = "Clear"
+            weatherDataValues = WeatherViewModel.WeatherDataValues(
+                location = "Albuquerque",
+                weatherData = WeatherData(
+                    main = WeatherData.Main(
+                        temp = 305.0
+                    ),
+                    weather = listOf(
+                        WeatherData.Weather(
+                            main = "Clear"
+                        )
                     )
                 )
             ),
-            onLocationUpdated = {
+            mainScreenInterface = object: MainScreenInterface {
+                override fun onHomeLoaded() {
+                }
 
-            },
-            onLocationSelected = {
+                override fun onWeatherLoaded() {
+                }
 
+                override fun onWeatherLocationEntered(location: String) {
+                }
+
+                override fun onWeatherSearch(location: String) {
+                }
             }
         )
     }

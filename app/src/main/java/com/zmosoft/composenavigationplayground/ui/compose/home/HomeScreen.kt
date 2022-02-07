@@ -14,6 +14,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.zmosoft.composenavigationplayground.mvvm.viewmodels.HomeViewModel
 import com.zmosoft.composenavigationplayground.ui.theme.ComposeNavigationPlaygroundTheme
 import java.text.SimpleDateFormat
 import java.util.*
@@ -21,9 +22,9 @@ import java.util.*
 @Composable
 fun HomeScreen(
     modifier: Modifier = Modifier,
-    date: Date?
+    homeData: HomeViewModel.HomeData
 ) {
-    val dateString = date?.let {
+    val dateString = homeData.date?.let {
         SimpleDateFormat("M/d/yyyy", Locale.getDefault()).format(it)
     } ?: ""
     Column(
@@ -54,7 +55,7 @@ fun HomeScreen(
 fun PreviewHomeScreen() {
     ComposeNavigationPlaygroundTheme {
         HomeScreen(
-            date = Date()
+            homeData = HomeViewModel.HomeData()
         )
     }
 }

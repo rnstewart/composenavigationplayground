@@ -1,6 +1,5 @@
 package com.zmosoft.composenavigationplayground.mvvm.viewmodels
 
-import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.viewModelScope
@@ -13,15 +12,25 @@ import javax.inject.Inject
 
 class WeatherViewModel @Inject constructor(
     app: ComposeNavigationPlaygroundApplication,
-    val weatherService: OpenWeatherService
+    private val weatherService: OpenWeatherService
 ): AndroidViewModel(app) {
-    val location = mutableStateOf("")
-    val weatherData: MutableState<WeatherData?> = mutableStateOf(null)
+    data class WeatherDataValues(
+        val location: String = "",
+        val weatherData: WeatherData? = null
+    )
+
+    fun init() {
+
+    }
+
+    val weatherDataValues = mutableStateOf(WeatherDataValues())
 
     fun checkWeather(location: String) {
         viewModelScope.launch(Dispatchers.IO) {
             val result = weatherService.getCurrentWeatherDataByCity(city = location)
-            weatherData.value = result.body()
+            weatherDataValues.value = weatherDataValues.value.copy(
+                weatherData = result.body()
+            )
         }
     }
 }

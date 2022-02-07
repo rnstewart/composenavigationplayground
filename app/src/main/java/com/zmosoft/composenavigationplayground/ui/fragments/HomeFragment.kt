@@ -25,7 +25,7 @@ class HomeFragment : Fragment() {
             setContent {
                 ComposeNavigationPlaygroundTheme {
                     HomeScreen(
-                        date = homeViewModel.date.value
+                        homeData = homeViewModel.homeData.value
                     )
                 }
             }
