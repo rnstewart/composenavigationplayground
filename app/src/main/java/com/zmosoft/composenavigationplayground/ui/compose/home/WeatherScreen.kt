@@ -57,20 +57,31 @@ fun WeatherScreen(
             }
         }
         weatherData?.let {
-            Column {
+            Column(horizontalAlignment = Alignment.CenterHorizontally) {
                 Text(
-                    modifier = Modifier.padding(top = 23.dp),
+                    modifier = Modifier.padding(vertical = 23.dp),
                     text = "Here is today's weather:",
                     style = MaterialTheme.typography.h5
                 )
-                Text(
-                    text = weatherData.getCurrentTempStr(LocalContext.current),
-                    style = MaterialTheme.typography.h4
-                )
-                Text(
-                    text = weatherData.currentWeatherCondition,
-                    style = MaterialTheme.typography.subtitle1
-                )
+                Row {
+                    Text(
+                        text = weatherData.getCurrentTempStr(LocalContext.current),
+                        style = MaterialTheme.typography.h4
+                    )
+                    Column(
+                        modifier = Modifier.padding(start = 8.dp)
+                    ) {
+                        Text(
+                            text = weatherData.currentWeatherCondition,
+                            style = MaterialTheme.typography.subtitle1
+                        )
+                        Text(
+                            text = weatherData.currentWeatherDescription,
+                            style = MaterialTheme.typography.subtitle1
+                        )
+                    }
+                    Spacer(modifier = Modifier.weight(1.0f))
+                }
             }
         }
         Spacer(modifier = Modifier.weight(1.0f))
@@ -86,6 +97,11 @@ fun PreviewWeatherScreen() {
             weatherData = WeatherData(
                 main = WeatherData.Main(
                     temp = 305.0
+                ),
+                weather = listOf(
+                    WeatherData.Weather(
+                        main = "Clear"
+                    )
                 )
             ),
             onLocationUpdated = {

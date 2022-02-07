@@ -91,7 +91,10 @@ data class WeatherData(
 
     val currentWeatherCondition: String
         get() = weather?.getOrNull(0)?.main ?: ""
-    
+
+    val currentWeatherDescription: String
+        get() = weather?.getOrNull(0)?.description ?: ""
+
     fun getSunriseStr(): String? {
         return sys?.sunrise?.let {
             timeFormat.format(Date(it * 1000))
