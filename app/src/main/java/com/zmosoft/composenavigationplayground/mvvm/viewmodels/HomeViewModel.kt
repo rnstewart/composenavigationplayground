@@ -1,6 +1,5 @@
 package com.zmosoft.composenavigationplayground.mvvm.viewmodels
 
-import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.AndroidViewModel
 import com.zmosoft.composenavigationplayground.ComposeNavigationPlaygroundApplication

@@ -9,13 +9,15 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.compose.NavHost
+import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import com.zmosoft.composenavigationplayground.mvvm.utils.MainScreenInterface
 import com.zmosoft.composenavigationplayground.mvvm.viewmodels.HomeViewModel
 import com.zmosoft.composenavigationplayground.mvvm.viewmodels.WeatherViewModel
+import com.zmosoft.composenavigationplayground.ui.compose.home.HomeScreen
+import com.zmosoft.composenavigationplayground.ui.compose.home.WeatherScreen
 import com.zmosoft.composenavigationplayground.ui.compose.utils.NavConstants
-import com.zmosoft.composenavigationplayground.ui.compose.utils.loadRoute
 import com.zmosoft.composenavigationplayground.ui.theme.ComposeNavigationPlaygroundTheme
 
 @Composable
@@ -74,13 +76,20 @@ fun MainScreen(
                 navController = navController,
                 startDestination = NavConstants.NavItem.HOME.route
             ) {
-                loadRoute(
-                    navController = navController,
-                    backStackEntry = currentRoute.value,
-                    mainScreenInterface = mainScreenInterface,
-                    homeData = homeData,
-                    weatherDataValues = weatherDataValues
-                )
+                composable(NavConstants.NavItem.HOME.route) {
+                    mainScreenInterface.onHomeLoaded()
+                    HomeScreen(homeData = homeData)
+                }
+                composable(NavConstants.NavItem.WEATHER.route) {
+                    mainScreenInterface.onWeatherLoaded()
+                    WeatherScreen(
+                        weatherDataValues = weatherDataValues,
+                        mainScreenInterface = mainScreenInterface
+                    )
+                }
+                composable(NavConstants.NavItem.MOVIES.route) {
+
+                }
             }
         }
     )
